@@ -1,7 +1,5 @@
 package com.mvlbarcelos.payment;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +22,6 @@ public class SubscriptionController {
 	
 	@GetMapping("/{username}")
 	public Subscription getSubscription(@PathVariable String username) {
-		return repository.findByUserUsername(username);
+		return repository.findByUsername(username);
 	}
 }

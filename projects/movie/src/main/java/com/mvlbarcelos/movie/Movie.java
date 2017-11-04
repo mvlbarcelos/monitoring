@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Movie {
 
-	public enum Subscription {
+	public enum TypeSubscription {
 		PREMIUM, STANDARD
 	}
 
@@ -30,7 +30,7 @@ public class Movie {
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private Subscription subscription;
+	private TypeSubscription typeSubscription;
 
 	public UUID getUuid() {
 		return uuid;
@@ -48,11 +48,11 @@ public class Movie {
 		this.title = title;
 	}
 
-	public Subscription getSubscription() {
-		return subscription;
+	public TypeSubscription getTypeSubscription() {
+		return typeSubscription;
 	}
 
-	public void setSubscription(Subscription subscription) {
-		this.subscription = subscription;
+	public void setTypeSubscription(TypeSubscription typeSubscription) {
+		this.typeSubscription = typeSubscription;
 	}
 }

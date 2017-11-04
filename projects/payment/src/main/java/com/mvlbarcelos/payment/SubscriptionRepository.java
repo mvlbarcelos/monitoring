@@ -6,5 +6,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface SubscriptionRepository extends PagingAndSortingRepository<Subscription, UUID> {
 	
-	Subscription findByUserUsername(String username);
+	Subscription findByUsername(String username);
 }

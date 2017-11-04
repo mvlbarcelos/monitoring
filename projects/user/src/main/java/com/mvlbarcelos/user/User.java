@@ -9,10 +9,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class User {
 
-	public enum Subscription {
-		PREMIUM, STANDARD
-	}
-
 	@Id
 	@NotNull
 	private String username;
@@ -21,8 +17,6 @@ public class User {
 	@NotNull
 	private String name;
 	@Enumerated(EnumType.STRING)
-	@NotNull
-	private Subscription subscription;
 
 	public String getUsername() {
 		return username;
@@ -46,13 +40,5 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Subscription getSubscription() {
-		return subscription;
-	}
-
-	public void setSubscription(Subscription subscription) {
-		this.subscription = subscription;
 	}
 }
