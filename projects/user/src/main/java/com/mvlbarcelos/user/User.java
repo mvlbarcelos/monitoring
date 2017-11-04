@@ -1,8 +1,6 @@
 package com.mvlbarcelos.user;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
@@ -16,7 +14,6 @@ public class User {
 	private String email;
 	@NotNull
 	private String name;
-	@Enumerated(EnumType.STRING)
 
 	public String getUsername() {
 		return username;
