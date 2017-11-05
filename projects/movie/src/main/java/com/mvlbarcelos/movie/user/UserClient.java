@@ -1,23 +1,20 @@
 package com.mvlbarcelos.movie.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
+@AllArgsConstructor
 public class UserClient {
 
-	@Autowired
-	private RestTemplate restTemplate;
+	private final RestTemplate restTemplate;
 
-	@Value("${user.url}")
-	private String URL;
+	private final UserConfigurationProperties configurationProperties;
 
 	public UserSubscription getSubscription(String username) {
 		UserSubscription userSubscription = restTemplate.getForObject(
-				String.format("%s%s/subscription",URL, username), UserSubscription.class);
-		
+				String.format("%s%s/subscription", configurationProperties.getUrl(), username), UserSubscription.class);
 		return userSubscription;
 	}
 }
