@@ -1,5 +1,52 @@
 version: '3'
 services:
+
+  cadvisor:
+    image: google/cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - 8090:8080
+
+  exporter:
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc
+      - /sys:/host/sys
+      - /:/rootfs
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    ports:
+      - 9100:9100
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    links:
+      - cadvisor
+      - exporter
+
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    links:
+      - prometheus
   
   payment:
     image: payment
@@ -10,7 +57,7 @@ services:
 
   user:
     image: user
-    ports:
+    ports:  
       - 8081:8080
     environment:
       - SPRING_PROFILES_ACTIVE=container
