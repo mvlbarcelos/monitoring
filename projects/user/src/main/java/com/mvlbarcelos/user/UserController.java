@@ -1,25 +1,19 @@
 package com.mvlbarcelos.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.mvlbarcelos.user.payment.PaymentClient;
 import com.mvlbarcelos.user.payment.UserSubscription;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 public class UserController {
 
-	@Autowired
-	private UserRepository repository;
+	private final UserRepository repository;
 	
-	@Autowired
-	private PaymentClient paymentClient;
+	private final PaymentClient paymentClient;
 	
 	@GetMapping("/{username}")
 	public User find(@PathVariable String username) {
@@ -28,7 +22,7 @@ public class UserController {
 	
 	@PostMapping("/")
 	public ResponseEntity<User> create(@RequestBody User user) {
-		return new ResponseEntity<User>(repository.save(user), HttpStatus.CREATED);
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(user));
 	}
 	
 	@GetMapping("/{username}/subscription")

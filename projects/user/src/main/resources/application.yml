@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: user
+  jpa:
+    show-sql: ${showSql:true}
+server:
+  context-path: /users
+
+---
+spring:
+  profiles: container
+  zipkin:
+    base-url: http://zipkin:9411/
+  sleuth:
+    sampler:
+      percentage: 1
+
+payment:
+  url: http://payment:8080/payments/
+
+---
+spring:
+  profiles: dev
+
+payment:
+  url: http://127.0.0.1:8082/payments/
+server:
+  port: 8081

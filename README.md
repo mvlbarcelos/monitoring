@@ -25,11 +25,9 @@ To build docker images
 $./build_projects.sh
 ```
 
-### Prepare Application
-
-Load data into applications
+### Deploy
 ```
-$./prepare_app.sh
+docker-compose up
 ```
 
 ### Trace requests between services
